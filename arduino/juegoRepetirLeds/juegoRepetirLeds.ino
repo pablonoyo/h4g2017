@@ -60,6 +60,16 @@ void comprobarEntrada(){
         digitalWrite( cicloLeds[i], LOW);
         delay(200);
     }
+    ejecutarCicloExito();
+}
+
+void ejecutarCicloExito(){
+    for ( int i = 0; i < 8; i++ ){
+        delay(50);
+        digitalWrite(posLeds[i%4], HIGH);
+        delay(50);
+        digitalWrite(posLeds[i%4], LOW);
+    }
 }
 
 
