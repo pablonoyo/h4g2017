@@ -1,3 +1,11 @@
+/*
+ * Título: juegoRepetirLeds
+ * Autor: Jesús Cruz ( jesus-cruz @github )
+ * 
+ * Explicación: el juego consiste en estar atento a un ciclo de 4 leds y reptirlo con unos botones
+ * Después de que se ejecute la secuencia de leds habrá que introducir la correcta, si no dejará intentarlo indefinidamente
+ */
+
 // Los pines donde están conectados los leds
 int posLeds[4]={8,9,10,11};
 
