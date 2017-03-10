@@ -24,7 +24,7 @@ public class ImageManager {
 		
 		row_number = new Image[14];
 		
-		char_d = new Image[NUM_IMAGES];
+		char_d = new Image[NUM_IMAGES]; //almacena todas las imagenees d
 		char_p = new Image[NUM_IMAGES];
 
 
@@ -41,7 +41,7 @@ public class ImageManager {
 		
 		for (int i = 0; i < row_number.length; i++) {
 			try{
-				row_number[i] = ImageIO.read(new File("Source/numbers/"+Integer.toString(i)+".png"));
+				row_number[i] = ImageIO.read(new File("Source/numeros/"+Integer.toString(i+1)+".png"));
 			}catch(IOException e){
 				System.err.println("file not found");
 			}

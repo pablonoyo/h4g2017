@@ -1,6 +1,7 @@
 package h4g2017;
 
 import java.awt.*;
+import java.awt.TrayIcon.MessageType;
 
 import javax.swing.*;
 
@@ -10,9 +11,11 @@ public class MainWindow extends JFrame
 	Cell[][] matrix; 
 	int rows,cols;
 	ImageManager manager;
-	private static int DELAY = 5*1000;
+	private static int DELAY = 20*1000;
 	int edad;
 
+	private static final boolean DEBUG = true;
+	
 	public MainWindow()
 	{
 
@@ -31,9 +34,9 @@ public class MainWindow extends JFrame
 					correcta = true;
 				}
 			}catch (Exception e) {}
-			
+
 		}while(!correcta);
-		
+
 		setWindowDetails();
 
 		GridLayout g = new GridLayout(rows, cols);
@@ -84,40 +87,85 @@ public class MainWindow extends JFrame
 	}
 
 	private void calcularResultado() {
-		int omisiones=0;
-		int comisiones=0;
-		int total_respuestas=0;
-		int total_aciertos=0;
-		int total_preguntas=0;
-		int total_fallos = 0;
-		int efectividad = 0;
-		int tasa_concentracion = 0;
 		
+		double omisiones=0;
+		double comisiones=0;
+		double total_respuestas=0;
+		double total_aciertos=0;
+		double total_preguntas=0;
+		double total_fallos = 0;
+		double efectividad = 0;
+		double tasa_concentracion = 0;
+
 
 
 		Cell c;
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix.length; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				total_preguntas++;
 				c = matrix[i][j];
 				if(c.choosen){
 					total_respuestas++;
 					if(!c.debeEstarMarcado)
-						comisiones++;;
-
+						comisiones++;
+					else
+						total_aciertos++;
 				}else{
 					if(c.debeEstarMarcado)
 						omisiones++;
 				}
 			}
 		}
+
 		total_fallos = comisiones + omisiones;
-		total_aciertos = total_preguntas - total_fallos;
+		efectividad = total_respuestas -(omisiones+comisiones);
+		tasa_concentracion = total_aciertos - comisiones;
+
+		boolean indicio = false;
+		switch (edad) {
+		case 6:
+			if(tasa_concentracion<66.6) indicio=true;
+			break;
+		case 7:
+			if(tasa_concentracion<84.8) indicio=true;
+			break;
+		case 8:
+			if(tasa_concentracion<98.56) indicio=true;
+			break;
+		case 9:
+			if(tasa_concentracion<109.05) indicio=true;
+			break;
+		case 10:
+			if(tasa_concentracion<123.29) indicio=true;
+			break;
+		case 11:
+			if(tasa_concentracion<126.16) indicio=true;
+			break;
+		default:
+			break;
+		}
+		System.out.println("");
+		String pre = "Tasa de concentracion = "+tasa_concentracion;
+		if (indicio){
+			pre = pre + "\nHay indicios de TDAH";
+		}else{
+			pre = pre + "\nNo existe indicio de TDAH";
+		}
 		
+		//todo-> add the icon
+		if(DEBUG)System.out.printf("omisiones=%f;\n"
+				+ "comisiones=%f \n"
+				+ "total_respuestas=%f \n "
+				+ "total_aciertos=%f \n "
+				+ "total_preguntas=%f\n"
+				+ "total_fallos = %f\n"
+				+ "efectividad = %f\n"
+				+ "tasa_concentracion = %f\n",omisiones,comisiones,total_respuestas,total_aciertos,
+				total_preguntas,total_fallos,efectividad,tasa_concentracion);
 		
-
-
-
+		ImageIcon icon = new ImageIcon("Resources/icon.png");
+		JOptionPane.showMessageDialog(null, pre, "Resultados", 1, icon);
+		dispose();
 	}
 
 	private void invalidateRow(int i) {

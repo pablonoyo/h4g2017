@@ -31,6 +31,7 @@ public class Cell extends JPanel{
 		
 		if(t.letra=='d' && (t.id_code==1 || t.id_code==6 || t.id_code == 8)){
 			debeEstarMarcado = true;
+			System.out.printf("Debe->(%d,%d)\n",i,j);
 		}
 		
 		invalidate_color = new Color(63, 0, 191);
