@@ -3,6 +3,7 @@ int nRepeticiones = 0;
 
 int estadoBoton = 0;
 
+// Los pines donde están conectados los leds
 int posLeds[5]={3,4,5,6,7};
 
 int pinInterruptor = 8;
@@ -80,14 +81,18 @@ void finalizarCiclo(int n){
     delay(500);
 }
 
+
 void ejecutarCicloExito(){
-    for ( int i = 0; i <= 4 ;i++){
-        digitalWrite(i+3,HIGH);
-        delay(500);
-        digitalWrite(i+3,LOW);
+    for ( int i = 0; i < 16; i++ ){
+        delay(50);
+        digitalWrite(posLeds[i%4], HIGH);
+        delay(50);
+        digitalWrite(posLeds[i%4], LOW);
     }
 }
 
+
+// Si usa el botón antes de tiempo fallará y encenderá el botón rojo
 bool comprobarImpulsividad() {
     estadoBoton = analogRead(A0);
     if ( estadoBoton < 1000  ) {
