@@ -1,6 +1,7 @@
 package h4g2017;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Principal {
 
@@ -70,35 +72,51 @@ public class Principal {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 
-		JMenu mnEjercicios = new JMenu("Ejercicios");
+		JMenu mnEjercicios = new JMenu("Juegos");
 		menuBar.add(mnEjercicios);
 
-		JMenuItem mntmSopaDeLetras = new JMenuItem("Sopa de letras");
-		mntmSopaDeLetras.addActionListener(new ActionListener() {
+		JMenuItem juego_1 = new JMenuItem("Juego 1");
+		juego_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*SopaDeLetras s = new SopaDeLetras();
-                s.main(null);*/
-				//SopaDeLetras.main(null);
+				try {
+					Runtime.getRuntime().exec("arduino/juegoImpulsividad/juegoImpulsividad.ino");
+				} catch (IOException f) {
+					f.printStackTrace();
+					
+				}
 			}
 		});
-		mnEjercicios.add(mntmSopaDeLetras);
+		
+		JMenuItem juego_2 = new JMenuItem("Juego 2");
+		juego_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Runtime.getRuntime().exec("arduino/juegoRepetirLeds/juegoRepetirLeds.ino");
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+			}
+		});
+		
+		mnEjercicios.add(juego_1);
+		mnEjercicios.add(juego_2);
+
 
 		JMenu mnInformacin = new JMenu("Información");
 		menuBar.add(mnInformacin);
-
+		
+		
 		JMenu mnInformacinParaPadres = new JMenu("Información para padres");
 		mnInformacin.add(mnInformacinParaPadres);
 
-		JMenuItem mntmInformacinParaPadres = new JMenuItem("Información para padres");
+		JMenuItem mntmInformacinParaPadres = new JMenuItem("Información especifica para padres");
 		mntmInformacinParaPadres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Runtime.getRuntime().exec("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe http://www.alenhi.org/padres-y-profesores/padres/");
 				} catch (IOException f) {
-					// TODO Auto-generated catch block
 					f.printStackTrace();
 				}
-
 			}
 		});
 		mnInformacinParaPadres.add(mntmInformacinParaPadres);

@@ -2,9 +2,14 @@ package h4g2017;
 public class TestWisc {
 	String directo[][];
 	String inverso[][];
-
+	
+	int index;
+	int index_binario;
 
 	public TestWisc(){
+		
+		index = index_binario = 0;
+		
 		directo= new String[7][2];
 		directo[0][0]="386";		directo[0][1]="612";
 		directo[1][0]="3417";		directo[1][1]="6158";
@@ -50,5 +55,18 @@ public class TestWisc {
 		}
 		return invertido;
 
+	}
+	
+	public String getNext(){
+		String s;
+		s = directo[index][index_binario];
+		if(index_binario==1){
+			index_binario=0;
+			index++;
+		}else{
+			index_binario++;
+		}
+		
+		return s;
 	}
 }

@@ -1,11 +1,15 @@
 package h4g2017;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class BackgorundPanel extends JPanel{
 	
@@ -21,5 +25,23 @@ public class BackgorundPanel extends JPanel{
 			System.err.println("Back not found");
 		}
 
+	}
+}
+@SuppressWarnings("serial")
+class WebPanel extends JScrollPane {
+	
+	public JEditorPane pane;
+	
+	public WebPanel(String url){
+		
+		pane = new JEditorPane();
+		pane.setEditable(false);
+		try {
+			  pane.setPage(url);
+			}catch (IOException e) {
+			  pane.setContentType("text/html");
+			  pane.setText("<html>Could not load</html>");
+			}
+		add(pane);
 	}
 }
